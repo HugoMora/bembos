@@ -18,10 +18,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from apps.orders.url import router
-
+from rest_framework.authtoken import views
+from apps.orders.views import Login,Logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('api/TipoComponente',TipoComponenteAPI.as_view(),name = 'api_create_tipocomponente')    
-    path('api/',include(router.urls))
+    path('api/',include(router.urls)),
+    path('api_token',views.obtain_auth_token),
+    path('login/',Login.as_view(), name = 'login'),
+    path('logout/', Logout.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
