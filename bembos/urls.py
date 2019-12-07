@@ -20,11 +20,15 @@ from django.conf import settings
 from apps.orders.url import router
 from rest_framework.authtoken import views
 from apps.orders.views import Login,Logout
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='BembosWs API Documentation')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('api/TipoComponente',TipoComponenteAPI.as_view(),name = 'api_create_tipocomponente')    
     path('api/',include(router.urls)),
+    path('api_documentation/', schema_view),
     path('api_token',views.obtain_auth_token),
     path('login/',Login.as_view(), name = 'login'),
     path('logout/', Logout.as_view()),
